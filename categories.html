@@ -3,79 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAKTORA | الأقسام</title>
+    <title>WAKTORA | المنتجات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #0a0a0a; --card-bg: #141414; --gold: #d4af37; --text-color: #ffffff; --pink: #ff0055; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding-top: 60px; padding-bottom: 70px; }
+        :root { --bg: #0a0a0a; --card: #141414; --gold: #d4af37; --text: #fff; --pink: #ff0055; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding-top: 60px; padding-bottom: 70px; }
         
-        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(20, 20, 20, 0.95); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid var(--gold); }
-        .logo { font-size: 22px; font-weight: 800; color: var(--text-color); }
+        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: rgba(20,20,20,0.95); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid var(--gold); }
+        .logo { font-size: 22px; font-weight: 800; }
         .logo span { color: var(--gold); }
-        .icon-btn { font-size: 24px; color: var(--gold); background: none; border: none; text-decoration: none; position: relative;}
-        .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--pink); color: white; font-size: 12px; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .icon-btn { font-size: 22px; color: var(--gold); text-decoration: none; position: relative; background:none; border:none; cursor:pointer;}
+        .badge { position: absolute; top: -5px; right: -8px; background: var(--pink); color: #fff; font-size: 12px; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
 
-        /* شريط البحث */
-        .search-container { padding: 15px; background: var(--card-bg); position: sticky; top: 60px; z-index: 900; display: flex; gap: 10px; border-bottom: 1px solid #222; }
-        .search-container input { flex: 1; padding: 10px; border: 1px solid var(--gold); background: #000; color: #fff; border-radius: 5px; outline: none; }
-        .search-container button { padding: 10px 20px; background: var(--gold); color: #000; border: none; border-radius: 5px; font-weight: bold; }
+        .search { padding: 15px; background: var(--card); position: sticky; top: 60px; z-index: 900; display: flex; gap: 10px; }
+        .search input { flex: 1; padding: 10px; border: 1px solid var(--gold); background: #000; color: #fff; border-radius: 5px; outline:none;}
+        .search button { padding: 10px 20px; background: var(--gold); color: #000; border: none; border-radius: 5px; font-weight: bold; }
 
-        .section-title { text-align: center; font-size: 22px; margin: 20px 0; }
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; }
-        .product-card { background: var(--card-bg); border: 1px solid #222; border-radius: 10px; padding: 10px; text-align: center; }
-        .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
-        .product-card h3 { font-size: 14px; margin-bottom: 5px; }
-        .price { color: var(--gold); font-size: 16px; font-weight: bold; margin-bottom: 10px; }
-        .btn-add { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
+        .card { background: var(--card); border: 1px solid #222; border-radius: 10px; padding: 10px; text-align: center; }
+        .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+        .card h3 { font-size: 14px; margin: 10px 0 5px; }
+        .price { color: var(--gold); font-weight: bold; margin-bottom: 10px; }
+        .btn { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background-color: #111; border-top: 1px solid var(--gold); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .bottom-nav a { display: flex; flex-direction: column; align-items: center; color: #888; text-decoration: none; font-size: 11px; gap: 4px; width: 20%; }
-        .bottom-nav a i { font-size: 20px; font-style: normal; }
-        .bottom-nav a.active { color: var(--gold); }
+        .btn-wa { display: block; width: 90%; margin: 20px auto; padding: 12px; background: #25d366; color: #fff; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 16px; border:none; cursor:pointer;}
+
+        .nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: #111; border-top: 1px solid var(--gold); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+        .nav a { display: flex; flex-direction: column; align-items: center; color: #888; text-decoration: none; font-size: 11px; gap: 4px; width: 20%; }
+        .nav a i { font-size: 20px; font-style: normal; }
+        .nav a.active { color: var(--gold); }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo">WAKTORA <span>👑</span></div>
-        <button class="icon-btn" onclick="toggleCart()">🛒 <span class="cart-badge" id="cart-count">0</span></button>
+        <button class="icon-btn" onclick="checkout()">🛒 <span class="badge" id="cart-count">0</span></button>
     </header>
 
-    <div class="search-container">
+    <div class="search">
         <input type="text" id="search-input" placeholder="ابحث عن ساعة..." onkeyup="filterProducts()">
+        <button>بحث</button>
     </div>
 
-    <h2 class="section-title">جميع المنتجات</h2>
-    <div class="product-grid" id="product-grid">
+    <div class="grid" id="product-grid">
         <!-- المنتجات -->
-        <div class="product-card" data-name="ساعة رولكس">
+        <div class="card" data-name="ساعة رولكس">
             <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=500&auto=format&fit=crop">
             <h3>ساعة رولكس فاخرة</h3>
             <div class="price">1,999 ر.س</div>
-            <button class="btn-add" onclick="addToCart('ساعة رولكس', 1999)">أضف للسلة 🛒</button>
+            <button class="btn" onclick="addToCart('ساعة رولكس', 1999)">أضف للسلة</button>
         </div>
-        <div class="product-card" data-name="ساعة كاسيو">
+        <div class="card" data-name="ساعة كاسيو">
             <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=500&auto=format&fit=crop">
             <h3>ساعة كاسيو رياضية</h3>
             <div class="price">899 ر.س</div>
-            <button class="btn-add" onclick="addToCart('ساعة كاسيو', 899)">أضف للسلة 🛒</button>
+            <button class="btn" onclick="addToCart('ساعة كاسيو', 899)">أضف للسلة</button>
         </div>
-        <div class="product-card" data-name="ساعة أوميغا">
+        <div class="card" data-name="ساعة أوميغا">
             <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=500&auto=format&fit=crop">
             <h3>ساعة أوميغا كلاسيك</h3>
             <div class="price">2,499 ر.س</div>
-            <button class="btn-add" onclick="addToCart('ساعة أوميغا', 2499)">أضف للسلة 🛒</button>
+            <button class="btn" onclick="addToCart('ساعة أوميغا', 2499)">أضف للسلة</button>
         </div>
-        <div class="product-card" data-name="ساعة ذكية">
+        <div class="card" data-name="ساعة ذكية">
             <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=500&auto=format&fit=crop">
             <h3>ساعة ذكية فاخرة</h3>
             <div class="price">1,299 ر.س</div>
-            <button class="btn-add" onclick="addToCart('ساعة ذكية', 1299)">أضف للسلة 🛒</button>
+            <button class="btn" onclick="addToCart('ساعة ذكية', 1299)">أضف للسلة</button>
         </div>
     </div>
 
-    <nav class="bottom-nav">
+    <button class="btn-wa" onclick="checkout()">إتمام الطلب عبر الواتساب 💬</button>
+
+    <nav class="nav">
         <a href="index.html"><i>🏠</i> الرئيسية</a>
         <a href="categories.html" class="active"><i>🗂️</i> الأقسام</a>
         <a href="offers.html"><i>🔥</i> العروض</a>
@@ -85,9 +86,10 @@
 
     <script>
         let cart = JSON.parse(localStorage.getItem('waktora_cart')) || [];
-        
+        document.getElementById('cart-count').innerText = cart.length;
+
         function addToCart(name, price) {
-            cart.push({ name: name, price: price });
+            cart.push({ name, price });
             localStorage.setItem('waktora_cart', JSON.stringify(cart));
             document.getElementById('cart-count').innerText = cart.length;
             alert('تمت إضافة ' + name + ' للسلة!');
@@ -95,24 +97,24 @@
 
         function filterProducts() {
             let input = document.getElementById('search-input').value.toLowerCase();
-            let products = document.querySelectorAll('.product-card');
-            products.forEach(product => {
-                let name = product.getAttribute('data-name').toLowerCase();
-                product.style.display = name.includes(input) ? "block" : "none";
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name').toLowerCase();
+                card.style.display = name.includes(input) ? "block" : "none";
             });
         }
 
-        // دالة إتمام الطلب
-        function toggleCart() {
-            if(cart.length === 0) { alert("السلة فارغة!"); return; }
-            let message = "مرحباً WAKTORA، أريد طلب:\n";
+        function checkout() {
+            if(cart.length === 0) { alert("السلة فارغة! أضف منتجات أولاً."); return; }
+            let msg = "مرحباً WAKTORA، أريد طلب الساعات التالية:\n\n";
             let total = 0;
-            cart.forEach((item, i) => { message += `${i+1}. ${item.name} - ${item.price} ر.س\n`; total += item.price; });
-            message += `\nالإجمالي: ${total} ر.س`;
-            window.open(`https://wa.me/966500000000?text=${encodeURIComponent(message)}`, '_blank');
+            cart.forEach((item, i) => { 
+                msg += `${i+1}. ${item.name} - ${item.price} ر.س\n`; 
+                total += item.price; 
+            });
+            msg += `\nالإجمالي: ${total} ر.س`;
+            window.open(`https://wa.me/966500000000?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
-        document.getElementById('cart-count').innerText = cart.length;
     </script>
 </body>
 </html>
