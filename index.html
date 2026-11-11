@@ -6,73 +6,75 @@
     <title>WAKTORA | الرئيسية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #0a0a0a; --card-bg: #141414; --gold: #d4af37; --text-color: #ffffff; --pink: #ff0055; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding-top: 60px; padding-bottom: 70px; }
+        :root { --bg: #0a0a0a; --card: #141414; --gold: #d4af37; --text: #fff; --pink: #ff0055; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding-top: 60px; padding-bottom: 70px; }
         
-        /* الشريط العلوي */
-        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background-color: rgba(20, 20, 20, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid var(--gold); }
-        .logo { font-size: 22px; font-weight: 800; color: var(--text-color); }
+        /* Header */
+        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: rgba(20,20,20,0.95); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 1000; border-bottom: 1px solid var(--gold); }
+        .logo { font-size: 22px; font-weight: 800; }
         .logo span { color: var(--gold); }
-        .icon-btn { font-size: 24px; color: var(--gold); background: none; border: none; position: relative; text-decoration: none; }
-        .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--pink); color: white; font-size: 12px; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .icon-btn { font-size: 22px; color: var(--gold); text-decoration: none; position: relative; }
+        .badge { position: absolute; top: -5px; right: -8px; background: var(--pink); color: #fff; font-size: 12px; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
 
-        /* البانر */
-        .hero { position: relative; height: 350px; background: url('https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?q=80&w=1000&auto=format&fit=crop') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,10,0.7); }
-        .hero-content { position: relative; z-index: 1; }
-        .hero h1 { font-size: 30px; color: var(--gold); margin-bottom: 10px; }
+        /* Hero */
+        .hero { height: 350px; background: url('https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?q=80&w=1000&auto=format&fit=crop') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+        .hero-content { position: relative; z-index: 1; padding: 20px; }
+        .hero h1 { color: var(--gold); font-size: 32px; margin-bottom: 10px; }
         .hero p { font-size: 16px; margin-bottom: 20px; }
-        .btn-gold { display: inline-block; padding: 10px 25px; background: var(--gold); color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; }
+        .btn-gold { padding: 10px 25px; background: var(--gold); color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; }
 
-        /* المنتجات */
-        .section-title { text-align: center; font-size: 22px; margin: 30px 0 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; margin-bottom: 30px; }
-        .product-card { background: var(--card-bg); border: 1px solid #222; border-radius: 10px; padding: 10px; text-align: center; }
-        .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
-        .price { color: var(--gold); font-size: 16px; font-weight: bold; margin-bottom: 10px; }
-        .btn-add { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 5px; font-weight: bold; }
+        /* Products */
+        .title { text-align: center; margin: 30px 0 20px; font-size: 22px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; }
+        .card { background: var(--card); border: 1px solid #222; border-radius: 10px; padding: 10px; text-align: center; }
+        .card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+        .card h3 { font-size: 14px; margin: 10px 0 5px; }
+        .price { color: var(--gold); font-weight: bold; margin-bottom: 10px; }
+        .btn { display: block; width: 100%; padding: 8px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 5px; text-decoration: none; font-size: 14px; font-weight: bold; }
 
-        /* الشريط السفلي */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background-color: #111; border-top: 1px solid var(--gold); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .bottom-nav a { display: flex; flex-direction: column; align-items: center; color: #888; text-decoration: none; font-size: 11px; gap: 4px; width: 20%; }
-        .bottom-nav a i { font-size: 20px; font-style: normal; }
-        .bottom-nav a.active { color: var(--gold); }
+        /* Bottom Nav */
+        .nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: #111; border-top: 1px solid var(--gold); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+        .nav a { display: flex; flex-direction: column; align-items: center; color: #888; text-decoration: none; font-size: 11px; gap: 4px; width: 20%; }
+        .nav a i { font-size: 20px; font-style: normal; }
+        .nav a.active { color: var(--gold); }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo">WAKTORA <span>👑</span></div>
-        <a href="categories.html" class="icon-btn">🔍</a>
-        <a href="categories.html" class="icon-btn">🛒 <span class="cart-badge" id="cart-count">0</span></a>
+        <div style="display:flex; gap:15px;">
+            <a href="categories.html" class="icon-btn">🔍</a>
+            <a href="categories.html" class="icon-btn">🛒 <span class="badge" id="cart-count">0</span></a>
+        </div>
     </header>
 
-    <section class="hero">
+    <div class="hero">
         <div class="hero-content">
             <h1>مرحباً بك في WAKTORA</h1>
             <p>الوقت عنوان أناقتك.. اكتشف مجموعتنا الفاخرة</p>
-            <a href="categories.html" class="btn-gold">تسوق الآن 🛒</a>
-        </div>
-    </section>
-
-    <h2 class="section-title">أحدث المنتجات</h2>
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=500&auto=format&fit=crop">
-            <h3>ساعة رولكس</h3>
-            <div class="price">1,999 ر.س</div>
-            <a href="categories.html" class="btn-add" style="display:block; text-decoration:none;">عرض التفاصيل</a>
-        </div>
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=500&auto=format&fit=crop">
-            <h3>ساعة كاسيو</h3>
-            <div class="price">899 ر.س</div>
-            <a href="categories.html" class="btn-add" style="display:block; text-decoration:none;">عرض التفاصيل</a>
+            <a href="categories.html" class="btn-gold">تسوق الآن</a>
         </div>
     </div>
 
-    <nav class="bottom-nav">
+    <h2 class="title">أحدث الإصدارات</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=500&auto=format&fit=crop">
+            <h3>ساعة رولكس فاخرة</h3>
+            <div class="price">1,999 ر.س</div>
+            <a href="categories.html" class="btn">عرض التفاصيل</a>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=500&auto=format&fit=crop">
+            <h3>ساعة كاسيو رياضية</h3>
+            <div class="price">899 ر.س</div>
+            <a href="categories.html" class="btn">عرض التفاصيل</a>
+        </div>
+    </div>
+
+    <nav class="nav">
         <a href="index.html" class="active"><i>🏠</i> الرئيسية</a>
         <a href="categories.html"><i>🗂️</i> الأقسام</a>
         <a href="offers.html"><i>🔥</i> العروض</a>
@@ -81,7 +83,6 @@
     </nav>
 
     <script>
-        // تحديث عداد السلة
         let cart = JSON.parse(localStorage.getItem('waktora_cart')) || [];
         document.getElementById('cart-count').innerText = cart.length;
     </script>
