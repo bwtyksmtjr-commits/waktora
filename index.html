@@ -15,9 +15,10 @@
             --pink: #ff0055;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding-top: 60px; padding-bottom: 70px; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding-top: 60px; padding-bottom: 70px; overflow-x: hidden; }
         
-        /* --- الشريط العلوي الجديد --- */
+        /* --- الشريط العلوي --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; height: 60px;
             background-color: rgba(20, 20, 20, 0.95); backdrop-filter: blur(10px);
@@ -30,11 +31,11 @@
         .logo span { color: var(--gold); }
         .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--pink); color: white; font-size: 12px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
 
-        /* --- القائمة الجانبية (Sidebar) --- */
+        /* --- القائمة الجانبية --- */
         .sidebar {
             position: fixed; top: 0; right: -250px; width: 250px; height: 100vh;
             background-color: #111; z-index: 2000; transition: 0.3s ease;
-            padding: 20px; border-left: 2px solid var(--gold);
+            padding: 20px; border-left: 2px solid var(--gold); overflow-y: auto;
         }
         .sidebar.active { right: 0; }
         .sidebar-overlay {
@@ -43,35 +44,62 @@
         }
         .sidebar-overlay.active { display: block; }
         .sidebar h2 { color: var(--gold); margin-bottom: 20px; text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px;}
-        .sidebar a { display: block; color: #fff; text-decoration: none; padding: 15px 10px; border-bottom: 1px solid #222; font-size: 16px; transition: 0.2s; }
-        .sidebar a:hover { color: var(--gold); padding-right: 15px; background: #1a1a1a; }
+        .sidebar a { display: block; color: #fff; text-decoration: none; padding: 15px 10px; border-bottom: 1px solid #222; font-size: 16px; }
         .close-btn { color: var(--gold); font-size: 24px; cursor: pointer; float: left; }
 
-        /* --- شريط البحث المنبثق --- */
-        .search-bar { display: none; padding: 15px; background: var(--card-bg); position: fixed; top: 60px; width: 100%; z-index: 999; }
+        /* --- شريط البحث --- */
+        .search-bar { display: none; padding: 15px; background: var(--card-bg); position: fixed; top: 60px; width: 100%; z-index: 999; box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
         .search-bar.active { display: flex; }
         .search-bar input { flex: 1; padding: 10px; border: 1px solid var(--gold); background: #000; color: #fff; border-radius: 0 5px 5px 0; outline: none; }
-        .search-bar button { padding: 10px 15px; background: var(--gold); border: none; border-radius: 5px 0 0 5px; cursor: pointer; font-weight: bold; }
+        .search-bar button { padding: 10px 15px; background: var(--gold); border: none; border-radius: 5px 0 0 5px; font-weight: bold; }
 
-        /* --- البانر والمنتجات --- */
-        .hero { position: relative; height: 400px; background: url('https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?q=80&w=1000&auto=format&fit=crop') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
+        /* --- سلة المشتريات --- */
+        .cart-modal {
+            position: fixed; top: 0; left: -100%; width: 100%; max-width: 400px; height: 100vh;
+            background: #111; z-index: 3000; transition: 0.3s ease; padding: 20px;
+            border-right: 2px solid var(--gold); display: flex; flex-direction: column;
+        }
+        .cart-modal.active { left: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 15px; }
+        .cart-header h2 { color: var(--gold); }
+        .cart-items { flex: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #222; }
+        .cart-item-info { display: flex; flex-direction: column; }
+        .cart-item-title { font-size: 14px; font-weight: bold; }
+        .cart-item-price { color: var(--gold); font-size: 14px; }
+        .remove-item { background: none; border: none; color: var(--pink); font-size: 18px; cursor: pointer; }
+        .cart-footer { border-top: 1px solid #333; padding-top: 15px; margin-top: 15px; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: bold; color: var(--gold); margin-bottom: 15px; }
+        .btn-checkout { width: 100%; padding: 12px; background: #25d366; color: #fff; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
+
+        /* --- الأقسام والمنتجات --- */
+        .hero { position: relative; height: 350px; background: url('https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?q=80&w=1000&auto=format&fit=crop') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
         .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,10,0.7); }
         .hero-content { position: relative; z-index: 1; }
-        .hero h1 { font-size: 35px; color: var(--gold); margin-bottom: 10px; text-shadow: 2px 2px 10px #000; }
-        .hero p { font-size: 16px; margin-bottom: 20px; line-height: 1.6; }
+        .hero h1 { font-size: 30px; color: var(--gold); margin-bottom: 10px; }
+        .hero p { font-size: 16px; margin-bottom: 20px; }
         .btn-gold { display: inline-block; padding: 10px 25px; background: var(--gold); color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; font-size: 16px; }
 
-        .section-title { text-align: center; font-size: 24px; margin: 30px 0 20px; }
+        .section-title { text-align: center; font-size: 24px; margin: 40px 0 20px; scroll-margin-top: 70px; }
         .section-title::after { content: ''; display: block; width: 60px; height: 2px; background: var(--gold); margin: 8px auto 0; }
+        
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; margin-bottom: 30px; }
-        .product-card { background: var(--card-bg); border: 1px solid #222; border-radius: 10px; padding: 10px; text-align: center; position: relative; }
+        .product-card { background: var(--card-bg); border: 1px solid #222; border-radius: 10px; padding: 10px; text-align: center; position: relative; transition: 0.3s; }
+        .product-card:hover { border-color: var(--gold); }
         .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
         .badge { position: absolute; top: 15px; right: 15px; background: var(--pink); color: #fff; padding: 3px 8px; border-radius: 15px; font-size: 10px; font-weight: bold; }
         .product-card h3 { font-size: 14px; margin-bottom: 5px; }
         .price { color: var(--gold); font-size: 16px; font-weight: bold; margin-bottom: 10px; }
-        .btn-add { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; }
+        .btn-add { width: 100%; padding: 8px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s; }
+        .btn-add:hover { background: var(--gold); color: #000; }
 
-        /* --- الشريط السفلي الثابت --- */
+        /* --- الأقسام النصية (من نحن / اتصل بنا) --- */
+        .content-section { padding: 40px 20px; text-align: center; background: #111; border-top: 1px solid #222; border-bottom: 1px solid #222; margin-bottom: 20px; scroll-margin-top: 60px; }
+        .content-section p { color: #bbb; line-height: 1.8; margin-bottom: 15px; }
+        .contact-info { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 15px; }
+        .contact-info a { color: var(--gold); text-decoration: none; font-size: 16px; font-weight: bold; }
+
+        /* --- الشريط السفلي --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; height: 65px;
             background-color: #111; border-top: 1px solid var(--gold);
@@ -80,18 +108,13 @@
         }
         .bottom-nav a {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #888; text-decoration: none; font-size: 12px; gap: 4px; width: 20%;
+            color: #888; text-decoration: none; font-size: 11px; gap: 4px; width: 20%;
         }
         .bottom-nav a i { font-size: 20px; font-style: normal; }
         .bottom-nav a.active, .bottom-nav a:hover { color: var(--gold); }
 
-        /* --- الفوتر --- */
-        footer { background: #000; border-top: 2px solid var(--gold); padding: 30px 15px; text-align: center; margin-top: 20px; }
-        footer p { color: #aaa; font-size: 14px; margin-bottom: 10px; }
-        footer a { color: var(--gold); text-decoration: none; display: block; margin: 5px 0; }
-
-        /* --- زر الواتساب --- */
-        .whatsapp-float { position: fixed; bottom: 80px; left: 15px; background: #25d366; color: #fff; padding: 12px; border-radius: 50%; font-size: 24px; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        /* --- زر الواتساب العائم --- */
+        .whatsapp-float { position: fixed; bottom: 85px; left: 15px; background: #25d366; color: #fff; padding: 12px; border-radius: 50%; font-size: 24px; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
@@ -104,16 +127,16 @@
         </div>
         <div style="display: flex; gap: 15px;">
             <button class="icon-btn" onclick="toggleSearch()">🔍</button>
-            <a href="#" class="icon-btn" style="text-decoration: none;">
+            <button class="icon-btn" onclick="toggleCart()">
                 🛒 <span class="cart-badge" id="cart-count">0</span>
-            </a>
+            </button>
         </div>
     </header>
 
-    <!-- شريط البحث المنبثق -->
+    <!-- شريط البحث -->
     <div class="search-bar" id="search-bar">
-        <button>بحث</button>
-        <input type="text" placeholder="ابحث عن ساعة...">
+        <input type="text" id="search-input" placeholder="ابحث عن ساعة..." onkeyup="filterProducts()">
+        <button onclick="toggleSearch()">إغلاق</button>
     </div>
 
     <!-- القائمة الجانبية -->
@@ -121,15 +144,37 @@
     <div class="sidebar" id="sidebar">
         <span class="close-btn" onclick="toggleSidebar()">✕</span>
         <h2>WAKTORA</h2>
-        <a href="#">🏠 الرئيسية</a>
-        <a href="#">🗂️ الأقسام</a>
-        <a href="#">🔥 العروض</a>
-        <a href="#">ℹ️ من نحن</a>
-        <a href="#">📞 اتصل بنا</a>
+        <a href="#home" onclick="toggleSidebar()">🏠 الرئيسية</a>
+        <a href="#products" onclick="toggleSidebar()">🗂️ الأقسام والمنتجات</a>
+        <a href="#offers" onclick="toggleSidebar()">🔥 العروض</a>
+        <a href="#about" onclick="toggleSidebar()">ℹ️ من نحن</a>
+        <a href="#contact" onclick="toggleSidebar()">📞 اتصل بنا</a>
+    </div>
+
+    <!-- سلة المشتريات -->
+    <div class="sidebar-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h2>سلة التسوق 🛒</h2>
+            <span class="close-btn" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- يتم إضافة المنتجات هنا عبر الجافاسكريبت -->
+            <p style="text-align:center; color:#888;">السلة فارغة حالياً</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>المجموع:</span>
+                <span id="cart-total-price">0 ر.س</span>
+            </div>
+            <button class="btn-checkout" onclick="checkoutWhatsApp()">
+                💬 إتمام الطلب عبر الواتساب
+            </button>
+        </div>
     </div>
 
     <!-- البانر الرئيسي -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
             <h1>مرحباً بك في WAKTORA</h1>
             <p>الوقت عنوان أناقتك.. اكتشف مجموعتنا الفاخرة</p>
@@ -139,78 +184,206 @@
 
     <!-- المنتجات -->
     <h2 class="section-title" id="products">الأكثر مبيعاً</h2>
-    <div class="product-grid">
-        <div class="product-card">
+    <div class="product-grid" id="product-grid">
+        <!-- المنتج الأول -->
+        <div class="product-card" data-name="ساعة رولكس فاخرة">
             <span class="badge">خصم 30%</span>
             <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=500&auto=format&fit=crop" alt="ساعة رولكس">
             <h3>ساعة رولكس فاخرة</h3>
             <div class="price">1,999 ر.س</div>
-            <button class="btn-add" onclick="addToCart()">أضف للسلة 🛒</button>
+            <button class="btn-add" onclick="addToCart('ساعة رولكس فاخرة', 1999)">أضف للسلة 🛒</button>
         </div>
-        <div class="product-card">
+        <!-- المنتج الثاني -->
+        <div class="product-card" data-name="ساعة كاسيو رياضية">
             <span class="badge">خصم 25%</span>
             <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=500&auto=format&fit=crop" alt="ساعة كاسيو">
             <h3>ساعة كاسيو رياضية</h3>
             <div class="price">899 ر.س</div>
-            <button class="btn-add" onclick="addToCart()">أضف للسلة 🛒</button>
+            <button class="btn-add" onclick="addToCart('ساعة كاسيو رياضية', 899)">أضف للسلة 🛒</button>
         </div>
-        <div class="product-card">
+        <!-- المنتج الثالث -->
+        <div class="product-card" data-name="ساعة أوميغا كلاسيك">
             <span class="badge">خصم 20%</span>
             <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=500&auto=format&fit=crop" alt="ساعة أوميغا">
             <h3>ساعة أوميغا كلاسيك</h3>
             <div class="price">2,499 ر.س</div>
-            <button class="btn-add" onclick="addToCart()">أضف للسلة 🛒</button>
+            <button class="btn-add" onclick="addToCart('ساعة أوميغا كلاسيك', 2499)">أضف للسلة 🛒</button>
         </div>
-        <div class="product-card">
+        <!-- المنتج الرابع -->
+        <div class="product-card" data-name="ساعة ذكية فاخرة">
             <span class="badge">جديد</span>
             <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?q=80&w=500&auto=format&fit=crop" alt="ساعة ذكية">
             <h3>ساعة ذكية فاخرة</h3>
             <div class="price">1,299 ر.س</div>
-            <button class="btn-add" onclick="addToCart()">أضف للسلة 🛒</button>
+            <button class="btn-add" onclick="addToCart('ساعة ذكية فاخرة', 1299)">أضف للسلة 🛒</button>
         </div>
     </div>
 
-    <!-- الفوتر -->
-    <footer>
-        <div class="logo" style="font-size: 20px; margin-bottom: 10px;">WAKTORA 👑</div>
-        <p>ساعات فاخرة بأصالة لا مثيل لها.</p>
-        <a href="https://wa.me/966500000000" target="_blank">📞 واتساب: +966500000000</a>
-        <a href="mailto:mtjrblak654@gmail.com">✉️ mtjrblak654@gmail.com</a>
-        <p style="margin-top: 15px; font-size: 12px;">جميع الحقوق محفوظة WAKTORA © 2025</p>
-    </footer>
+    <!-- قسم العروض -->
+    <h2 class="section-title" id="offers">عروض حصرية 🔥</h2>
+    <section class="content-section">
+        <p>استخدم كود <strong>(WAKTORA10)</strong> عند طلبك للحصول على خصم إضافي 10% على جميع الساعات!</p>
+    </section>
+
+    <!-- قسم من نحن -->
+    <h2 class="section-title" id="about">من نحن</h2>
+    <section class="content-section">
+        <p>متجر WAKTORA هو وجهتك الأولى للساعات الفاخرة والأصلية. نحن نؤمن بأن الساعة ليست مجرد أداة لمعرفة الوقت، بل هي قطعة فنية تعكس شخصيتك وذوقك الرفيع.</p>
+        <p>نقدم لك تشكيلة مختارة بعناية من أفضل الماركات العالمية لتناسب جميع الأذواق والمناسبات.</p>
+    </section>
+
+    <!-- قسم اتصل بنا -->
+    <h2 class="section-title" id="contact">اتصل بنا</h2>
+    <section class="content-section">
+        <p>فريقنا جاهز لخدمتك والإجابة على استفساراتك في أي وقت.</p>
+        <div class="contact-info">
+            <a href="https://wa.me/966500000000" target="_blank">📞 واتساب: +966500000000</a>
+            <a href="mailto:mtjrblak654@gmail.com">✉️ البريد: mtjrblak654@gmail.com</a>
+        </div>
+    </section>
 
     <!-- زر الواتساب -->
     <a href="https://wa.me/966500000000" class="whatsapp-float" target="_blank">💬</a>
 
     <!-- الشريط السفلي -->
     <nav class="bottom-nav">
-        <a href="#" class="active"><i>🏠</i> الرئيسية</a>
-        <a href="#"><i>🗂️</i> الأقسام</a>
-        <a href="#"><i>🔥</i> العروض</a>
-        <a href="#"><i>ℹ️</i> من نحن</a>
-        <a href="#"><i>📞</i> اتصل بنا</a>
+        <a href="#home" class="active"><i>🏠</i> الرئيسية</a>
+        <a href="#products"><i>🗂️</i> الأقسام</a>
+        <a href="#offers"><i>🔥</i> العروض</a>
+        <a href="#about"><i>ℹ️</i> من نحن</a>
+        <a href="#contact"><i>📞</i> اتصل بنا</a>
     </nav>
 
-    <!-- الأكواد البرمجية للتفاعل -->
+    <!-- الجافاسكريبت -->
     <script>
-        // فتح وإغلاق القائمة الجانبية
+        // --- إدارة القائمة الجانبية ---
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('sidebar-overlay').classList.toggle('active');
         }
 
-        // فتح وإغلاق شريط البحث
+        // --- إدارة شريط البحث ---
         function toggleSearch() {
             document.getElementById('search-bar').classList.toggle('active');
+            if(document.getElementById('search-bar').classList.contains('active')){
+                document.getElementById('search-input').focus();
+            }
         }
 
-        // وظيفة السلة
-        let cartCount = 0;
-        function addToCart() {
-            cartCount++;
-            document.getElementById('cart-count').innerText = cartCount;
-            alert('تمت إضافة الساعة إلى السلة بنجاح!');
+        // --- فلترة المنتجات ---
+        function filterProducts() {
+            let input = document.getElementById('search-input').value.toLowerCase();
+            let products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                let name = product.getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+            });
         }
+
+        // --- إدارة السلة (Cart) ---
+        let cart = JSON.parse(localStorage.getItem('waktora_cart')) || [];
+
+        function toggleCart() {
+            document.getElementById('cart-modal').classList.toggle('active');
+            document.getElementById('cart-overlay').classList.toggle('active');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name: name, price: price });
+            localStorage.setItem('waktora_cart', JSON.stringify(cart));
+            updateCartUI();
+            // تأثير بصري بسيط
+            let badge = document.getElementById('cart-count');
+            badge.style.transform = "scale(1.5)";
+            setTimeout(() => badge.style.transform = "scale(1)", 200);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('waktora_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            let container = document.getElementById('cart-items-container');
+            let countBadge = document.getElementById('cart-count');
+            let totalPriceEl = document.getElementById('cart-total-price');
+            
+            container.innerHTML = "";
+            let total = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <span class="cart-item-title">${item.name}</span>
+                                <span class="cart-item-price">${item.price} ر.س</span>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart(${index})">❌</button>
+                        </div>
+                    `;
+                });
+            }
+
+            countBadge.innerText = cart.length;
+            totalPriceEl.innerText = total.toLocaleString() + " ر.س";
+        }
+
+        // --- إتمام الطلب عبر الواتساب ---
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("السلة فارغة! أضف بعض الساعات أولاً.");
+                return;
+            }
+
+            let message = "مرحباً متجر WAKTORA، أريد طلب الساعات التالية:\n\n";
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ${item.price} ر.س\n`;
+                total += item.price;
+            });
+
+            message += `\nالإجمالي: ${total.toLocaleString()} ر.س\n`;
+            message += "شكراً لكم.";
+
+            let encodedMessage = encodeURIComponent(message);
+            let phone = "966500000000";
+            window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+        }
+
+        // تشغيل تحديث السلة عند فتح الموقع
+        updateCartUI();
+
+        // تفعيل لون الزر النشط في الشريط السفلي عند التمرير
+        window.addEventListener('scroll', () => {
+            let sections = document.querySelectorAll('section, h2.section-title');
+            let navLinks = document.querySelectorAll('.bottom-nav a');
+            
+            let current = "";
+            sections.forEach((section) => {
+                let sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
