@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAKTORA | العروض</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0a0a0a; --gold: #d4af37; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding-top: 60px; padding-bottom: 70px; text-align: center; }
+        
+        header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: rgba(20,20,20,0.95); display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--gold); z-index: 1000;}
+        .logo { font-size: 22px; font-weight: 800; }
+        .logo span { color: var(--gold); }
 
+        .offer-box { margin: 50px 20px; padding: 40px 20px; background: #141414; border: 2px dashed var(--gold); border-radius: 15px; }
+        .offer-box h1 { color: var(--gold); font-size: 30px; margin-bottom: 15px; }
+        .offer-box p { font-size: 18px; line-height: 1.8; }
+        .code { display: inline-block; margin-top: 20px; padding: 10px 30px; background: var(--gold); color: #000; font-weight: bold; font-size: 24px; border-radius: 5px; letter-spacing: 2px; }
+
+        .nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; background: #111; border-top: 1px solid var(--gold); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+        .nav a { display: flex; flex-direction: column; align-items: center; color: #888; text-decoration: none; font-size: 11px; gap: 4px; width: 20%; }
+        .nav a i { font-size: 20px; font-style: normal; }
+        .nav a.active { color: var(--gold); }
+    </style>
+</head>
+<body>
+    <header><div class="logo">WAKTORA <span>👑</span></div></header>
+
+    <div class="offer-box">
+        <h1>🔥 عرض حصري 🔥</h1>
+        <p>احصل على خصم إضافي بقيمة 10%<br>على جميع الساعات الفاخرة.</p>
+        <p style="margin-top:15px; font-size:14px; color:#aaa;">استخدم الكود التالي عند الطلب:</p>
+        <div class="code">WAKTORA10</div>
+    </div>
+
+    <nav class="nav">
+        <a href="index.html"><i>🏠</i> الرئيسية</a>
+        <a href="categories.html"><i>🗂️</i> الأقسام</a>
+        <a href="offers.html" class="active"><i>🔥</i> العروض</a>
+        <a href="about.html"><i>ℹ️</i> من نحن</a>
+        <a href="contact.html"><i>📞</i> اتصل بنا</a>
+    </nav>
+</body>
+</html>
